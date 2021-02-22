@@ -8,14 +8,16 @@ block content
             strong Send Message
           hr
       div(class="row")
-        div(class="col-md-12")
+        div(class="col-md-6")
           div(class="form-group")
-            textarea(id="textarea")
+            textarea(id="textarea" class="form-control" style="height:150px;" placeholder="Your SMS body in here.")
+        div(class="col-md-6")
           div(class="form-group")
-            select(id="tags" multiple="multiple")
-              for key,tag in contacts.Tags
-                option(value=`${tag}`) #{tag}
-          div(class="form-group")
+            select(id="tags" multiple="multiple" class="form-control" style="height:150px;")
+              if contacts.Tags
+                for key,tag in contacts.Tags
+                  option(value=`${tag}`) #{tag}
+          div(class="form-group text-right")
             button(id="sendmessages") Send
   div(class="row")
     div(class="col-md-12")
@@ -27,8 +29,10 @@ block content
       div(class="row")
         div(class="col-md-12")
           form(action="/contacts" method="post" enctype="multipart/form-data")
-            input(type="file" name="file")
-            button(type="submit") Upload
+            div(class="form-group")
+              input(type="file" name="file" class="form-control")
+            div(class="text-right")
+              button(type="submit") Upload
           hr
       div(class="row")
         div(class="col-md-12")
