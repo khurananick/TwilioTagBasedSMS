@@ -1,0 +1,12 @@
+.space-right {
+  margin-right: 5px;
+}
+
+hr.spacer {
+  border: 0;
+  margin: 5px;
+}
+
+div.footer {
+  height:400px;
+}

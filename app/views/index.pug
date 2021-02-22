@@ -1,0 +1,62 @@
+extend layout
+block content
+  div(class="row")
+    div(class="col-md-12")
+      div(class="row")
+        div(class="col-md-12")
+          h3(id="message")
+            strong Send Message
+          hr
+      div(class="row")
+        div(class="col-md-12")
+          div(class="form-group")
+            textarea(id="textarea")
+          div(class="form-group")
+            select(id="tags" multiple="multiple")
+              for key,tag in contacts.Tags
+                option(value=`${tag}`) #{tag}
+          div(class="form-group")
+            button(id="sendmessages") Send
+  div(class="row")
+    div(class="col-md-12")
+      div(class="row")
+        div(class="col-md-12")
+          h3(id="contacts")
+            strong Contacts
+          hr
+      div(class="row")
+        div(class="col-md-12")
+          form(action="/contacts" method="post" enctype="multipart/form-data")
+            input(type="file" name="file")
+            button(type="submit") Upload
+          hr
+      div(class="row")
+        div(class="col-md-12")
+          table.table.table-striped
+            thead
+              tr
+                th Phone Number
+                th Contact
+                th Tags
+            tbody
+              for contact in contacts
+                tr
+                  td #{contact.PhoneNumber}
+                  td #{contact.ContactName}
+                  td #{contact.Tags}
+  script.
+    const textarea      = $("#textarea");
+    const tags          = $("#tags");
+    const sendmessages  = $("#sendmessages");
+    sendmessages.on("click", function() {
+      $.ajax({
+        url: "/sendmessages",
+        method: "POST",
+        data: {
+          tags: tags.val(),
+          message: textarea.val()
+        }
+      }).done(function(resp) {
+        console.log(resp);
+      });
+    });
